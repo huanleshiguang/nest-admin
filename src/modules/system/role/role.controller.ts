@@ -50,6 +50,7 @@ export class RoleController {
   @ApiResult({ type: [RoleEntity], isPage: true })
   @Perm(permissions.LIST)
   async list(@Query() dto: RoleQueryDto) {
+    console.log(dto, 'dto')
     return this.roleService.list(dto)
   }
 

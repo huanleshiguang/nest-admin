@@ -37,6 +37,7 @@ export class CaptchaController {
       height: isEmpty(height) ? 50 : height,
       charPreset: '1234567890',
     })
+    console.log(svg, 'svg')
     const result = {
       img: `data:image/svg+xml;base64,${Buffer.from(svg.data).toString(
         'base64',

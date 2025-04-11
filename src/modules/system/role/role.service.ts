@@ -14,14 +14,13 @@ import { RoleDto, RoleQueryDto, RoleUpdateDto } from './role.dto'
 
 @Injectable()
 export class RoleService {
-  constructor(
-    @InjectRepository(RoleEntity)
-    private roleRepository: Repository<RoleEntity>,
-    @InjectRepository(MenuEntity)
-    private menuRepository: Repository<MenuEntity>,
-    @InjectEntityManager() private entityManager: EntityManager,
-  ) {}
+  @InjectRepository(RoleEntity)
+  private roleRepository: Repository<RoleEntity>
 
+  @InjectRepository(MenuEntity)
+  private menuRepository: Repository<MenuEntity>
+
+  @InjectEntityManager() private entityManager: EntityManager
   /**
    * 列举所有角色：除去超级管理员
    */
@@ -100,6 +99,7 @@ export class RoleService {
   /**
    * 更新角色信息
    * 如果传入的menuIds为空，则清空sys_role_menus表中存有的关联数据，参考新增
+   * id: 角色id
    */
   async update(id, { menuIds, ...data }: RoleUpdateDto): Promise<void> {
     await this.roleRepository.update(id, data)

@@ -8,6 +8,7 @@ import { uniqueSlash } from './tool.util'
 
 export interface RouteRecordRaw {
   id: number
+  parentId: number
   path: string
   name: string
   component?: string
@@ -44,6 +45,7 @@ function createRoute(menu: MenuEntity, _isRoot: boolean): RouteRecordRaw {
   if (isExternal(menu.path)) {
     return {
       id: menu.id,
+      parentId: menu.parentId,
       path: menu.path,
       // component: 'IFrame',
       name: menu.name,
@@ -55,6 +57,7 @@ function createRoute(menu: MenuEntity, _isRoot: boolean): RouteRecordRaw {
   if (menu.type === 0) {
     return {
       id: menu.id,
+      parentId: menu.parentId,
       path: menu.path,
       component: menu.component,
       name: menu.name,
@@ -64,6 +67,7 @@ function createRoute(menu: MenuEntity, _isRoot: boolean): RouteRecordRaw {
 
   return {
     id: menu.id,
+    parentId: menu.parentId,
     path: menu.path,
     name: menu.name,
     component: menu.component,

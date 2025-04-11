@@ -70,17 +70,25 @@ export function getFilePath(name: string, currentDate: string, type: string) {
 }
 
 export async function saveLocalFile(buffer: Buffer, name: string, currentDate: string, type: string) {
-  const filePath = path.join(__dirname, '../../', 'public/upload/', `${currentDate}/`, `${type}/`)
+  // 构件完整路径 __dirname表示当前文件夹
+  const dirPath = path.join(__dirname, '../../', 'public/upload/', `${currentDate}/`, `${type}/`)
   try {
     // 判断是否有该文件夹
-    await fs.promises.stat(filePath)
+    await fs.promises.stat(dirPath)
   }
   catch (error) {
     // 没有该文件夹就创建
-    await fs.promises.mkdir(filePath, { recursive: true })
+    await fs.promises.mkdir(dirPath, { recursive: true })
   }
-  const writeStream = fs.createWriteStream(filePath + name)
-  writeStream.write(buffer)
+  // 安全写入文件
+  const filePath = path.join(dirPath, name)
+  await new Promise<void>((resolve, reject) => {
+    const writeStream = fs.createWriteStream(filePath)
+    writeStream.on('finish', resolve)
+    writeStream.on('error', reject)
+    writeStream.write(buffer)
+    writeStream.end()
+  })
 }
 
 export async function saveFile(file: MultipartFile, name: string) {

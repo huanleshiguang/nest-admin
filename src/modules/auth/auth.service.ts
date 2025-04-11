@@ -31,7 +31,7 @@ export class AuthService {
     private tokenService: TokenService,
     @Inject(SecurityConfig.KEY) private securityConfig: ISecurityConfig,
     @Inject(AppConfig.KEY) private appConfig: IAppConfig,
-  ) {}
+  ) { }
 
   async validateUser(credential: string, password: string): Promise<any> {
     const user = await this.userService.findUserByUserName(credential)
@@ -72,6 +72,7 @@ export class AuthService {
     const roleIds = await this.roleService.getRoleIdsByUser(user.id)
 
     const roles = await this.roleService.getRoleValues(roleIds)
+    console.log(roleIds, roles, 'login====roleIds===roles')
 
     // 包含access_token和refresh_token
     const token = await this.tokenService.generateAccessToken(user.id, roles)
@@ -83,6 +84,8 @@ export class AuthService {
 
     // 设置菜单权限
     const permissions = await this.menuService.getPermissions(user.id)
+    console.log('用户菜单权限：', permissions)
+
     await this.setPermissionsCache(user.id, permissions)
 
     await this.loginLogService.create(user.id, ip, ua)

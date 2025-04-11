@@ -90,7 +90,6 @@ export class MenuService {
         .orderBy('menu.order_no', 'ASC')
         .getMany()
     }
-
     const menuList = generatorRouters(menus)
     return menuList
   }
@@ -199,6 +198,7 @@ export class MenuService {
       })
       permission = uniq(permission)
     }
+    // console.log(permission, 'finally----permission')
     return permission
   }
 

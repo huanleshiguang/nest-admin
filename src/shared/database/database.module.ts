@@ -41,6 +41,7 @@ const providers = [EntityExistConstraint, UniqueConstraint]
       // and returns a Promise<DataSource>.
       dataSourceFactory: async (options) => {
         const dataSource = await new DataSource(options).initialize()
+        console.log(dataSource, '??--------连接数据库成功')
         return dataSource
       },
     }),

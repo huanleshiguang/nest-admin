@@ -30,8 +30,10 @@ export class UploadController {
   async upload(@Req() req: FastifyRequest, @AuthUser() user: IAuthUser) {
     if (!req.isMultipart())
       throw new BadRequestException('Request is not multipart')
+    console.log(req, 'req')
 
     const file = await req.file()
+    console.log(file, 'file')
 
     // https://github.com/fastify/fastify-multipart
     // const parts = req.files()

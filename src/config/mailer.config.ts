@@ -7,8 +7,8 @@ export const mailerRegToken = 'mailer'
 export const MailerConfig = registerAs(mailerRegToken, () => ({
   host: env('SMTP_HOST'),
   port: envNumber('SMTP_PORT'),
-  ignoreTLS: true,
-  secure: true,
+  ignoreTLS: false,
+  secure: false,
   auth: {
     user: env('SMTP_USER'),
     pass: env('SMTP_PASS'),
