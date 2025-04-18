@@ -26,6 +26,7 @@ import { LoggerService } from './shared/logger/logger.service'
 declare const module: any
 
 async function bootstrap() {
+  // NestFactory.create 创建的是 NestJS 应用（默认 HTTP 服务）--http服务器
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     fastifyApp,
